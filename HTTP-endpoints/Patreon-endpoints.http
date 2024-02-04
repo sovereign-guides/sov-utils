@@ -2,13 +2,13 @@
 
 ###
 # @name Get Webhooks
-GET {{host}}/api/oauth2/v2/webhooks?
+GET {{api-host}}/api/oauth2/v2/webhooks?
     fields%5Bwebhook%5D=last_attempted_at,num_consecutive_times_failed,paused,secret,triggers,uri
 Authorization: Bearer {{Access-Token}}
 
 ###
 # @name Create Webhook
-POST {{host}}/api/oauth2/v2/webhooks
+POST {{api-host}}/api/oauth2/v2/webhooks
 Authorization: Bearer {{Access-Token}}
 Content-Type: application/json
 
@@ -19,13 +19,13 @@ Content-Type: application/json
             "triggers": [
                 "posts:publish"
             ],
-            "uri": "https://hopeful-forcibly-baboon.ngrok-free.app/patreon"
+            "uri": "{{bot-host}}"
         },
         "relationships": {
             "campaign": {
                 "data": {
                     "type": "campaign",
-                    "id": "11725124"
+                    "id": "{{campaign-id}}"
                 }
             }
         }
@@ -34,29 +34,29 @@ Content-Type: application/json
 
 ###
 # @name Get Campaigns
-GET {{host}}/api/oauth2/v2/campaigns
+GET {{api-host}}/api/oauth2/v2/campaigns
 Authorization: Bearer {{Access-Token}}
 
 ###
 # @name Get Campaign's Posts
-GET {{host}}/api/oauth2/v2/campaigns/{{campaign_id}}/posts
+GET {{api-host}}/api/oauth2/v2/campaigns/{{campaign-id}}/posts
 Authorization: Bearer {{Access-Token}}
 
 ### Set paused to false if you're attempting to send missed events, see NOTE in Example Webhook Payload
 # @name Update Webhook (Unpause)
-PATCH {{host}}/api/oauth2/v2/webhooks/741276
+PATCH {{api-host}}/api/oauth2/v2/webhooks/{{webhook-id}}
 Authorization: Bearer {{Access-Token}}
 Content-Type: application/json
 
 {
     "data": {
-        "id": "741276",
+        "id": "{{webhook-id}}",
         "type": "webhook",
         "attributes": {
             "triggers": [
                 "posts:publish"
             ],
-            "uri": "https://hopeful-forcibly-baboon.ngrok-free.app/patreon",
+            "uri": "{{bot-host}}",
             "paused": "false"
         }
     }
@@ -64,7 +64,7 @@ Content-Type: application/json
 
 ###
 # @name Fake Post Webhook
-POST https://hopeful-forcibly-baboon.ngrok-free.app/patreon
+POST {{bot-host}}
 Content-Type: application/json
 
 {
