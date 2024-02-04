@@ -1,5 +1,5 @@
 import { RouteBases, Routes } from "discord-api-types/v10";
-import { error, json } from "itty-router";
+import { error, status } from "itty-router";
 import type { Env } from "../index";
 import { isPatreonRequest } from "./verify";
 
@@ -18,15 +18,9 @@ export async function handlePatreonRequest(request: Request, env: Env): Promise<
 			"content-type": "application/json",
 		},
 		body: JSON.stringify({
-			content: `# New Patreon Post: ${postTitle}\n${postLink}`,
+			content: `# New Patreon Post: ${postTitle}\nCheck it out here: ${postLink}`,
 		}),
 	});
 
-	// return json({
-	// 	body: {
-	// 		content: `# New Patreon Post: ${postTitle}\n${postLink}`,
-	// 	},
-	// });
-
-	return error(200);
+	return status(200);
 }
