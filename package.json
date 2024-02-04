@@ -7,7 +7,7 @@
 		"ngrok": "ngrok http --domain=hopeful-forcibly-baboon.ngrok-free.app 8787",
 		"start": "wrangler dev",
 		"biome": "npx @biomejs/biome check --apply ./src",
-		"deploy": "wrangler deploy src/client/index.ts"
+		"deploy": "wrangler deploy src/index.ts"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "1.5.3",

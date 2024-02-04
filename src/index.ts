@@ -1,15 +1,22 @@
 import { Router, error, json } from "itty-router";
-import { handleRequest } from "./bot";
+import { handleDiscordRequest } from "./client/discord";
+import { handlePatreonRequest } from "./client/patreon";
 
 export interface Env {
 	DISCORD_APPLICATION_ID: string;
 	DISCORD_PUBLIC_KEY: string;
 	DISCORD_TOKEN: string;
+	PATREON_WEBHOOK_SECRET: string;
 }
 
 const router = Router();
 router
-	.post("/interactions", (request, env: Env) => handleRequest(request, env))
+	.post("/patreon", (request: Request, env: Env) =>
+		handlePatreonRequest(request, env),
+	)
+	.post("/interactions", (request: Request, env: Env) =>
+		handleDiscordRequest(request, env),
+	)
 	.all("*", () => "👋🌍");
 
 export default {

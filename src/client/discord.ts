@@ -3,10 +3,10 @@ import {
 	InteractionType,
 } from "discord-api-types/v10";
 import { error, json } from "itty-router";
-import type { Env } from "./index";
+import type { Env } from "../index";
 import { isDiscordRequest } from "./verify";
 
-export async function handleRequest(
+export async function handleDiscordRequest(
 	request: Request,
 	env: Env,
 ): Promise<Response> {
