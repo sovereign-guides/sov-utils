@@ -6,6 +6,8 @@ export interface Env {
 	DISCORD_APPLICATION_ID: string;
 	DISCORD_PUBLIC_KEY: string;
 	DISCORD_TOKEN: string;
+	DISCORD_WEBHOOK_SECRET: string;
+	DISCORD_WEBHOOK_ID: string;
 	PATREON_WEBHOOK_SECRET: string;
 }
 

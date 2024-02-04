@@ -1,8 +1,7 @@
+import { RouteBases, Routes } from "discord-api-types/v10";
 import { error } from "itty-router";
-import { RouteBases, Routes, Snowflake } from 'discord-api-types/v10';
 import { isPatreonRequest } from "./verify";
 import type { Env } from "../index";
-
 
 export async function handlePatreonRequest(
 	request: Request,
@@ -12,17 +11,20 @@ export async function handlePatreonRequest(
 
 	if (!content || !isValid) return error(401);
 
-	const postTitle = 'Patreon: ' + content.data.attributes.title as String
-	const postLink = 'https://www.patreon.com' + content.data.attributes.url as String
+	const postTitle = content.data.attributes.title as string;
+	const postLink =
+		`https://www.patreon.com${content.data.attributes.url}` as string;
 
-	const channelId = "1196157901954355242" as Snowflake
-	await fetch(`${RouteBases.api}${Routes.channelMessages(channelId)}`, {
-		method: 'POST',
-		headers: { Authorization: `Bot ${env.DISCORD_TOKEN}`, 'content-type': 'application/json' },
+	await fetch(`${RouteBases.api}${Routes.webhook(env.DISCORD_WEBHOOK_ID, env.DISCORD_WEBHOOK_SECRET)}`, {
+		method: "POST",
+		headers: {
+			Authorization: `Bot ${env.DISCORD_TOKEN}`,
+			"content-type": "application/json",
+		},
 		body: JSON.stringify({
-			content: `${postTitle}\n${postLink}`
-		})
-	})
+			content: `# New Patreon Post: ${postTitle}\n${postLink}`,
+		}),
+	});
 
 	return error(200);
 }
