@@ -1,8 +1,6 @@
 # Logs
 
 logs
-_.log
-npm-debug.log_
 
 
 # Dependency directories
@@ -14,3 +12,7 @@ node_modules/
 
 .dev.vars
 .wrangler/
+
+
+# API resources
+/HTTP-endpoints/http-client.private.env.json
