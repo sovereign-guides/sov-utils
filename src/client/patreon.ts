@@ -1,19 +1,15 @@
 import { RouteBases, Routes } from "discord-api-types/v10";
-import { error } from "itty-router";
-import { isPatreonRequest } from "./verify";
+import { error, json } from "itty-router";
 import type { Env } from "../index";
+import { isPatreonRequest } from "./verify";
 
-export async function handlePatreonRequest(
-	request: Request,
-	env: Env,
-): Promise<Response> {
+export async function handlePatreonRequest(request: Request, env: Env): Promise<Response> {
 	const { content, isValid } = await isPatreonRequest(request, env);
 
 	if (!content || !isValid) return error(401);
 
 	const postTitle = content.data.attributes.title as string;
-	const postLink =
-		`https://www.patreon.com${content.data.attributes.url}` as string;
+	const postLink = `https://www.patreon.com${content.data.attributes.url}` as string;
 
 	await fetch(`${RouteBases.api}${Routes.webhook(env.DISCORD_WEBHOOK_ID, env.DISCORD_WEBHOOK_SECRET)}`, {
 		method: "POST",
@@ -25,6 +21,12 @@ export async function handlePatreonRequest(
 			content: `# New Patreon Post: ${postTitle}\n${postLink}`,
 		}),
 	});
+
+	// return json({
+	// 	body: {
+	// 		content: `# New Patreon Post: ${postTitle}\n${postLink}`,
+	// 	},
+	// });
 
 	return error(200);
 }

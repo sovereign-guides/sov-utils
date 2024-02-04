@@ -13,15 +13,10 @@ export interface Env {
 
 const router = Router();
 router
-	.post("/patreon", (request: Request, env: Env) =>
-		handlePatreonRequest(request, env),
-	)
-	.post("/interactions", (request: Request, env: Env) =>
-		handleDiscordRequest(request, env),
-	)
+	.post("/patreon", (request: Request, env: Env) => handlePatreonRequest(request, env))
+	.post("/interactions", (request: Request, env: Env) => handleDiscordRequest(request, env))
 	.all("*", () => "👋🌍");
 
 export default {
-	fetch: (req: Request, env: Env, ctx: ExecutionContext) =>
-		router.handle(req, env, ctx).then(json).catch(error),
+	fetch: (req: Request, env: Env, ctx: ExecutionContext) => router.handle(req, env, ctx).then(json).catch(error),
 };
