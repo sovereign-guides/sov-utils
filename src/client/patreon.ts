@@ -11,7 +11,7 @@ export async function handlePatreonRequest(request: Request, env: Env): Promise<
 	const postTitle = content.data.attributes.title as string;
 	const postLink = `https://www.patreon.com${content.data.attributes.url}` as string;
 
-	const patreonRoleId = "1203369394286235730" as Snowflake;
+	const patreonRoleId = "1213516633281396817" as Snowflake;
 
 	await fetch(`${RouteBases.api}${Routes.webhook(env.DISCORD_WEBHOOK_ID, env.DISCORD_WEBHOOK_SECRET)}`, {
 		method: "POST",

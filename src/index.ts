@@ -1,6 +1,6 @@
 import { Router, error, json } from "itty-router";
-import { handleDiscordRequest } from "./client/discord";
 import { handlePatreonRequest } from "./client/patreon";
+import { handleDiscordRequest } from "./client/discord";
 
 export interface Env {
 	DISCORD_APPLICATION_ID: string;
